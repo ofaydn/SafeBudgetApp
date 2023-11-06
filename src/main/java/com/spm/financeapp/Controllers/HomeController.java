@@ -67,6 +67,7 @@ public class HomeController {
 //        return ResponseEntity.ok(userDetails.getUsername());
 //    }
 
+
     @GetMapping("/signup")
     public String registerUser(){
         return "signup";
