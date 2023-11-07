@@ -52,9 +52,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize)->authorize
                         .requestMatchers("/","/login", "/logout","/signup").permitAll()
                         .requestMatchers("/admin").hasAnyAuthority("ADMIN")
-
                         .anyRequest().authenticated())
                 .formLogin((form)->form
+                        .loginPage("/login")
                         .defaultSuccessUrl("/",true)
                         .failureUrl("/error"))
                 .logout((logout)->
@@ -63,8 +63,6 @@ public class WebSecurityConfig {
                                 .deleteCookies("JSESSIONID")
                                 .invalidateHttpSession(true)
                 );
-
-
         return http.build();
     }
 

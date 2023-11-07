@@ -48,10 +48,10 @@ public class HomeController {
     }
 
 
-//    @GetMapping("/login")
-//    public String login(){
-//        return "login";
-//    }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 
 //    @PostMapping("/login")
 //    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
