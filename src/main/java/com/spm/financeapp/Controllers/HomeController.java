@@ -69,12 +69,12 @@ public class HomeController {
 //    }
 
 
-    @GetMapping("/signup")
+    @GetMapping("/register")
     public String registerUser(){
-        return "signup";
+        return "register";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public String registerUser(User newuser) {
 
         User user = new User(newuser.getUsername(),
@@ -92,7 +92,7 @@ public class HomeController {
         user.setRole(roles);
         userRepository.save(user);
 
-        return "redirect:/signin" ;
+        return "redirect:/login" ;
     }
 
 }
