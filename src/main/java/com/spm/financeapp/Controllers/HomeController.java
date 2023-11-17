@@ -53,22 +53,6 @@ public class HomeController {
         return "login";
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
-//
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
-//        );
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//
-//        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
-//        return ResponseEntity.ok(userDetails.getUsername());
-//    }
-
-
     @GetMapping("/register")
     public String registerUser(){
         return "register";
@@ -93,6 +77,11 @@ public class HomeController {
         userRepository.save(user);
 
         return "redirect:/login" ;
+    }
+
+    @GetMapping("/dashboard")
+    public String getDashboard(){
+        return "dashboard";
     }
 
 }

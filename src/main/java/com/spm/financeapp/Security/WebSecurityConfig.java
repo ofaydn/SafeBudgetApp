@@ -52,10 +52,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize)->authorize
                         .requestMatchers("/","/images/*", "/css/*", "/login", "/logout","/register").permitAll()
                         .requestMatchers("/admin").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/dashboard").hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated())
                 .formLogin((form)->form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/",true)
+                        .defaultSuccessUrl("/dashboard",true)
                         .failureUrl("/error"))
                 .logout((logout)->
                         logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
