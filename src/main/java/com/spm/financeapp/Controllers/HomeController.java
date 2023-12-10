@@ -47,11 +47,22 @@ public class HomeController {
         return "admin";
     }
 
-
+    @GetMapping("/rates")
+    public String getRates(){return "rates";}
     @GetMapping("/login")
     public String login(){
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
+            return "redirect:/dashboard";
+        }
+
         return "login";
     }
+    @PostMapping("/logout")
+    public String logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return "redirect:/login";
+    }
+
 
     @GetMapping("/register")
     public String registerUser(){
@@ -61,9 +72,19 @@ public class HomeController {
     @PostMapping("/register")
     public String registerUser(User newuser) {
 
+        if (userRepository.existsByUsername(newuser.getUsername())) {
+            return "redirect:/register?error";
+        }
+
+        if (userRepository.existsByEmail(newuser.getEmail())) {
+            return "redirect:/register?error";
+        }
+
         User user = new User(newuser.getUsername(),
                 newuser.getEmail(),
-                passwordEncoder.encode(newuser.getPassword()));
+                passwordEncoder.encode(newuser.getPassword()),
+                newuser.getFirstName(),
+                newuser.getLastName());
 
         Set<Role> roles = new HashSet<>();
 
@@ -78,13 +99,6 @@ public class HomeController {
 
         return "redirect:/login" ;
     }
-    @GetMapping("/expense")
-    public String getExpense(){
-        return "expense";
-    }
-    @GetMapping("/income")
-    public String getIncome(){
-        return "income";
-    }
+
 
 }

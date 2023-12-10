@@ -19,6 +19,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="type")
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
     @Column(name="price")
     private Double price;
@@ -31,12 +32,14 @@ public class Transaction {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="period_id")
     private Period period;
 
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
 
 }
