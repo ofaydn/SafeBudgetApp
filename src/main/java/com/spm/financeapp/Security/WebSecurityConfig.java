@@ -50,7 +50,7 @@ public class WebSecurityConfig {
         http
                 .csrf((csrf)->csrf.disable())
                 .authorizeHttpRequests((authorize)->authorize
-                        .requestMatchers("/","/images/*", "/css/*","/js/*","/scss/*","/vendor/*", "/login", "/logout","/register").permitAll()
+                        .requestMatchers("/","/images/*", "/css/*","/js/*","/scss/*","/vendor/*", "/login", "/logout","/register","/transaction/*").permitAll()
                         .requestMatchers("/admin").hasAnyAuthority("ADMIN")
                         .requestMatchers("/dashboard","/expense","/income","/rates").hasAnyAuthority("ADMIN","USER")
                         .anyRequest().authenticated())

@@ -78,11 +78,6 @@ public class HomeController {
 
         return "redirect:/login" ;
     }
-
-    @GetMapping("/dashboard")
-    public String getDashboard(){
-        return "dashboard";
-    }
     @GetMapping("/expense")
     public String getExpense(){
         return "expense";

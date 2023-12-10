@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Periodic</th>
+            <th>Price</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Period</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${transactionList}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.date}"></td>
+            <td th:text="${t.isPeriodic}"></td>
+            <td th:text="${t.price}"></td>
+            <td th:text="${t.type}"></td>
+            <td th:text="${t.category?.name}"></td>
+            <td th:text="${t.period?.type}"></td>
+            <td th:text="${t.user?.getUsername()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
