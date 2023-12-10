@@ -62,9 +62,19 @@ public class HomeController {
     @PostMapping("/register")
     public String registerUser(User newuser) {
 
+        if (userRepository.existsByUsername(newuser.getUsername())) {
+            return "redirect:/register?error";
+        }
+
+        if (userRepository.existsByEmail(newuser.getEmail())) {
+            return "redirect:/register?error";
+        }
+
         User user = new User(newuser.getUsername(),
                 newuser.getEmail(),
-                passwordEncoder.encode(newuser.getPassword()));
+                passwordEncoder.encode(newuser.getPassword()),
+                newuser.getFirstName(),
+                newuser.getLastName());
 
         Set<Role> roles = new HashSet<>();
 
