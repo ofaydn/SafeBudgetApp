@@ -47,7 +47,8 @@ public class HomeController {
         return "admin";
     }
 
-
+    @GetMapping("/rates")
+    public String getRates(){return "rates";}
     @GetMapping("/login")
     public String login(){
         return "login";
@@ -78,13 +79,6 @@ public class HomeController {
 
         return "redirect:/login" ;
     }
-    @GetMapping("/expense")
-    public String getExpense(){
-        return "expense";
-    }
-    @GetMapping("/income")
-    public String getIncome(){
-        return "income";
-    }
+
 
 }
