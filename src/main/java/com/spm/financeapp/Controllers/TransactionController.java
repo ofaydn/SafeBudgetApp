@@ -5,7 +5,8 @@ import com.spm.financeapp.Models.User;
 import com.spm.financeapp.Repositories.TransactionRepository;
 import com.spm.financeapp.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,12 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     private final TransactionRepository transactionRepository;
+    @Autowired
+    private final UserRepository userRepository;
 
-    public TransactionController(com.spm.financeapp.Repositories.TransactionRepository transactionRepository) {
+    public TransactionController(TransactionRepository transactionRepository, UserRepository userRepository) {
         this.transactionRepository = transactionRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/transaction")
@@ -37,8 +41,10 @@ public class TransactionController {
         newtransaction.setPeriod(transaction.getPeriod());
         newtransaction.setPrice(transaction.getPrice());
         newtransaction.setType(transaction.getType());
-        newtransaction.setUser(transaction.getUser());
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        newtransaction.setUser(userRepository.findByUsername(authentication.getName()).isPresent() ? userRepository.findByUsername(authentication.getName()).get() : null);
 
         transactionRepository.save(newtransaction);
 
