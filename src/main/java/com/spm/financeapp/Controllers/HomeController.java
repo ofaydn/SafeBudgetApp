@@ -51,8 +51,18 @@ public class HomeController {
     public String getRates(){return "rates";}
     @GetMapping("/login")
     public String login(){
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
+            return "redirect:/dashboard";
+        }
+
         return "login";
     }
+    @PostMapping("/logout")
+    public String logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return "redirect:/login";
+    }
+
 
     @GetMapping("/register")
     public String registerUser(){
