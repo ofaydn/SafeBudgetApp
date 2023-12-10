@@ -83,5 +83,13 @@ public class HomeController {
     public String getDashboard(){
         return "dashboard";
     }
+    @GetMapping("/expense")
+    public String getExpense(){
+        return "expense";
+    }
+    @GetMapping("/income")
+    public String getIncome(){
+        return "income";
+    }
 
 }
