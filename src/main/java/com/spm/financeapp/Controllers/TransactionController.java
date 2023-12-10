@@ -1,7 +1,11 @@
 package com.spm.financeapp.Controllers;
 
 import com.spm.financeapp.Models.Transaction;
+import com.spm.financeapp.Models.User;
 import com.spm.financeapp.Repositories.TransactionRepository;
+import com.spm.financeapp.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,7 @@ import java.util.List;
 
 @Controller
 public class TransactionController {
+    @Autowired
     private final TransactionRepository transactionRepository;
 
     public TransactionController(com.spm.financeapp.Repositories.TransactionRepository transactionRepository) {
@@ -26,9 +31,8 @@ public class TransactionController {
     public String postTransaction(Transaction transaction){
         Transaction newtransaction = new Transaction();
         newtransaction.setCategory(transaction.getCategory());
-        if(transaction.getDate() != null) {
-            newtransaction.setDate(transaction.getDate());
-        }
+        Date date = new Date();
+        newtransaction.setDate(date);
         newtransaction.setIsPeriodic(transaction.getIsPeriodic());
         newtransaction.setPeriod(transaction.getPeriod());
         newtransaction.setPrice(transaction.getPrice());
