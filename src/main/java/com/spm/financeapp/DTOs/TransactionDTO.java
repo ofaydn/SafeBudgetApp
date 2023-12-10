@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TransactionDTO {
     private Double price;
-    private Integer isPeriodic;
+    private String isPeriodic;
     private String type;
     private Integer categoryId;
     private Integer periodId;

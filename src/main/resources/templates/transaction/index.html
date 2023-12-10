@@ -48,60 +48,35 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group rounded-pill border p-1">
-                                            <input name="isPeriodic" type="text" class="form-control bg-transparent border-top-0 border-bottom-0 border-left-0" id="isPeriodic" placeholder="Periodic" disabled>
+                                            <label for="isPeriodic" class="form-control bg-transparent border-top-0 border-bottom-0 border-left-0" >Periodic</label>
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text bg-transparent border-0">
-                                                    <input type="checkbox" id="eriodic" name="isPeriodic">
+                                                    <input type="checkbox" id="isPeriodic" name="isPeriodic">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-<!--                                    ORIGINAL-->
-<!--                                    <div class="form-group">-->
-<!--                                        <input name="isPeriodic" type="text" class="form-control form-control-user" id="isPeriodic"-->
-<!--                                               placeholder="Periodic">-->
-<!--                                    </div>-->
-
-<!--test                                    -->
-<!--test                                    -->
                                     <div class="form-group">
                                         <select name="type" class="form-control rounded-pill p-1" id="type">
-                                            <option value="selected" selected>Select Type</option>
-                                            <option value="1">INCOME</option>
-                                            <option value="2">EXPENSE</option>
+                                            <option value="" selected>Select Type</option>
+                                            <option value="income">INCOME</option>
+                                            <option value="expense">EXPENSE</option>
                                         </select>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <select name="category" type="text" class="form-control rounded-pill p-1"
-                                                   id="category" placeholder="Category id">
-                                                <option value="selected" selected>Select Category</option>
+                                            <select name="categoryId" id="categoryId" class="form-control rounded-pill p-1">
+                                                <option value="" selected>Select Category</option>
+                                                <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select name="period" type="text" class="form-control rounded-pill p-1"
-                                                   id="period" placeholder="Period id">
-                                                <option value="selected" selected>Select Period ID</option>
+                                            <select name="periodId" id="periodId" class="form-control rounded-pill p-1">
+                                                <option value="" selected>Select Period</option>
+                                                <option th:each="period : ${periodList}" th:value="${period.id}" th:text="${period.type}"></option>
                                             </select>
                                         </div>
                                     </div>
-<!--test                                    -->
-<!--test                                    -->
-<!--                                    ORIGINAL-->
-<!--                                    <div class="form-group">-->
-<!--                                        <input name="type" type="text" class="form-control form-control-user" id="type"-->
-<!--                                               placeholder="Type">-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group row">-->
-<!--                                        <div class="col-sm-6 mb-3 mb-sm-0">-->
-<!--                                            <input name="category" type="text" class="form-control form-control-user"-->
-<!--                                                   id="category" placeholder="Category id">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-sm-6">-->
-<!--                                            <input name="period" type="text" class="form-control form-control-user"-->
-<!--                                                   id="period" placeholder="Period id">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                     <button type="submit" class="btn btn-primary btn-user btn-block">Add Transaction</button>
                                 </form>
                             </div>
@@ -130,46 +105,3 @@
 </body>
 
 </html>
-
-
-<!--ORIGINAL INDEX.HTML-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<form method="post" th:action="@{/transaction/addtransaction}" class="user">-->
-<!--    <div class="form-group row">-->
-<!--        <div class="col-sm-6">-->
-<!--            <input required="" name="price" type="number" class="form-control form-control-user" id="price"-->
-<!--                   placeholder="Price">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <input name="isPeriodic" type="text" class="form-control form-control-user" id="isPeriodic"-->
-<!--               placeholder="periodic">-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <input name="type" type="text" class="form-control form-control-user" id="type"-->
-<!--               placeholder="Type">-->
-<!--    </div>-->
-<!--    <div class="form-group row">-->
-<!--        <div class="col-sm-6 mb-3 mb-sm-0">-->
-<!--            <input name="category" type="text" class="form-control form-control-user"-->
-<!--                   id="category" placeholder="category id">-->
-<!--        </div>-->
-<!--        <div class="col-sm-6">-->
-<!--            <input name="period" type="text" class="form-control form-control-user"-->
-<!--                   id="period" placeholder="Period id">-->
-<!--        </div>-->
-<!--        <div class="col-sm-6">-->
-<!--            <input name="user" type="text" class="form-control form-control-user"-->
-<!--                   id="user" placeholder="User id">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->

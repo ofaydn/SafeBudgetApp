@@ -45,17 +45,19 @@ public class TransactionController {
         List<Period> periodList = periodRepository.findAll();
 
         model.addAttribute("categoryList", categoryList);
+        model.addAttribute("periodList", periodList);
         return "transaction/index";
     }
     @PostMapping("/transaction/addtransaction")
     public String postTransaction(TransactionDTO transaction){
+        System.out.println(transaction);
         Transaction newtransaction = new Transaction();
         if (transaction.getCategoryId() != null) {
             newtransaction.setCategory(categoryRepository.findById(transaction.getCategoryId()).isPresent() ? categoryRepository.findById(transaction.getCategoryId()).get() : null);
         }
         Date date = new Date();
         newtransaction.setDate(date);
-        newtransaction.setIsPeriodic(transaction.getIsPeriodic() == 1);
+        newtransaction.setIsPeriodic(Objects.equals(transaction.getIsPeriodic(), "on"));
         if(transaction.getPeriodId() != null) {
             newtransaction.setPeriod(periodRepository.findById(transaction.getPeriodId()).isPresent() ? periodRepository.findById(transaction.getPeriodId()).get() : null);
         }
