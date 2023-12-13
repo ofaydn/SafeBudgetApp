@@ -5,6 +5,7 @@ import com.spm.financeapp.Enums.TransactionType;
 import com.spm.financeapp.Models.Category;
 import com.spm.financeapp.Models.Period;
 import com.spm.financeapp.Models.Transaction;
+import com.spm.financeapp.Models.User;
 import com.spm.financeapp.Repositories.CategoryRepository;
 import com.spm.financeapp.Repositories.PeriodRepository;
 import com.spm.financeapp.Repositories.TransactionRepository;
@@ -50,7 +51,6 @@ public class TransactionController {
     }
     @PostMapping("/transaction/addtransaction")
     public String postTransaction(TransactionDTO transaction){
-        System.out.println(transaction);
         Transaction newtransaction = new Transaction();
         if (transaction.getCategoryId() != null) {
             newtransaction.setCategory(categoryRepository.findById(transaction.getCategoryId()).isPresent() ? categoryRepository.findById(transaction.getCategoryId()).get() : null);
@@ -75,11 +75,17 @@ public class TransactionController {
 
         transactionRepository.save(newtransaction);
 
-        return "redirect:/transaction";
+        return "redirect:/dashboard";
     }
     @GetMapping("/transaction/list")
     public String getTransactionList(Model model){
-        List<Transaction> transactionList = transactionRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        String nameSurname = userRepository.findByUsername(currentPrincipalName).get().getFirstName() + " " + userRepository.findByUsername(currentPrincipalName).get().getLastName();
+
+        model.addAttribute("namesurname", nameSurname);
+
+        List<Transaction> transactionList = transactionRepository.findAllByUserId(userRepository.findByUsername(currentPrincipalName).get().getId());
         model.addAttribute("transactionList", transactionList);
         return "transaction/list";
     }
