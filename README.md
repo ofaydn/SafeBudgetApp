@@ -1,2 +1,2 @@
 # SPMHomework
- Github repository for SPM Homewrk
+ Github repository for SPM Homework
