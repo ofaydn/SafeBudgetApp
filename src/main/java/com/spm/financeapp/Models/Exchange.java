@@ -1,0 +1,19 @@
+package com.spm.financeapp.Models;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Exchange {
+    public String name;
+    public Double value;
+}
