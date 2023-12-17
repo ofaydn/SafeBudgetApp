@@ -101,12 +101,13 @@
 
 </div>
 
+<!-- Periodic checkbox and dropdown functionality -->
 <script>
-
     // Add an event listener to the isPeriodic checkbox
     const periodDropdownElement = document.getElementById("periodId");
     const isPeriodicCheckbox = document.getElementById("isPeriodic");
 
+    // Initially hide the dropdown
     periodDropdownElement.style.display = "none";
 
     isPeriodicCheckbox.addEventListener("change", togglePeriodDropdown);
@@ -116,6 +117,7 @@
         periodDropdownElement.style.display = isPeriodicCheckbox.checked ? "block" : "none";
     }
 </script>
+
 <!-- Bootstrap core JavaScript-->
 <script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
