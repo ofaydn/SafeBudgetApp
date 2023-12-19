@@ -15,9 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -85,8 +85,17 @@ public class TransactionController {
 
         model.addAttribute("namesurname", nameSurname);
 
-        List<Transaction> transactionList = transactionRepository.findAllByUserId(userRepository.findByUsername(currentPrincipalName).get().getId());
+        List<Transaction> transactionList = transactionRepository.findAllByUserId(userRepository.findByUsername(currentPrincipalName).isPresent() ? userRepository.findByUsername(currentPrincipalName).get().getId() : null);
+
         model.addAttribute("transactionList", transactionList);
         return "transaction/list";
+    }
+    @RequestMapping(value = "/transaction/delete/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+    public String deleteTransaction(@PathVariable String id){
+        //check whether id is number or not
+        if (id.matches("[0-9]+")){
+            transactionRepository.deleteById(Integer.parseInt(id));
+        }
+        return "redirect:/transaction/list";
     }
 }

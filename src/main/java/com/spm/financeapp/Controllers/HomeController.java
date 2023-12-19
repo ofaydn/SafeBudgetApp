@@ -97,6 +97,8 @@ public class HomeController {
     public String getUser (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+        String nameSurname = userRepository.findByUsername(currentPrincipalName).get().getFirstname() + " " + userRepository.findByUsername(currentPrincipalName).get().getLastname();
+
         String firstName = userRepository.findByUsername(currentPrincipalName).get().getFirstname();
         String lastName = userRepository.findByUsername(currentPrincipalName).get().getLastname();
         String email = userRepository.findByUsername(currentPrincipalName).get().getEmail();
@@ -104,6 +106,7 @@ public class HomeController {
         model.addAttribute("firstname", firstName);
         model.addAttribute("lastname", lastName);
         model.addAttribute("email", email);
+        model.addAttribute("namesurname", nameSurname);
         return "profile";
     }
 
