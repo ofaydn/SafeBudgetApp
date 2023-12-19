@@ -52,7 +52,7 @@ public class HomeController {
     @PostMapping("/logout")
     public String logout(){
         SecurityContextHolder.getContext().setAuthentication(null);
-        return "redirect:/login";
+        return "login";
     }
 
 
