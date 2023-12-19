@@ -174,19 +174,6 @@
                     </button>
                 </form>
 
-                <!-- Topbar Search -->
-                <form action="/exchange" method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input name="currency" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -226,7 +213,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="/profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -251,12 +238,9 @@
 
                 <!-- DataTales -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Exchange Rates Table</h6>
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="exchangeTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Currency</th>
@@ -284,7 +268,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Safe Budget</span>
                     </div>
                 </div>
             </footer>
@@ -315,7 +299,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="/logout">Logout</a>
             </div>
         </div>
     </div>
@@ -337,6 +321,22 @@
 
 <!-- Page level custom scripts -->
 <script src="/js/demo/datatables-demo.js"></script>
+
+<!-- To see all entries and hide the length selection -->
+<script>
+    $(document).ready(function() {
+        // Hide the length selection
+        $('#dataTable_length').hide();
+    });
+
+    $(document).ready(function() {
+        // Select the 3rd option (100) to see all entries
+        const selectElement = $('select[name="dataTable_length"]').prop('selectedIndex', 3);
+
+        // Trigger the change event to simulate user interaction
+        selectElement.trigger('change');
+    });
+</script>
 
 </body>
 
