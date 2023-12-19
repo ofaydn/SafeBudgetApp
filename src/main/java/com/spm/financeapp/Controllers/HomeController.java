@@ -22,8 +22,6 @@ import java.util.Set;
 @Controller
 public class HomeController {
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
@@ -58,12 +56,15 @@ public class HomeController {
 
     @GetMapping("/register")
     public String registerUser(){
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
+            return "redirect:/dashboard";
+        }
+
         return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(User newuser) {
-
         if (userRepository.existsByUsername(newuser.getUsername())) {
             return "redirect:/register?error";
         }
@@ -75,8 +76,8 @@ public class HomeController {
         User user = new User(newuser.getUsername(),
                 newuser.getEmail(),
                 passwordEncoder.encode(newuser.getPassword()),
-                newuser.getFirstName(),
-                newuser.getLastName());
+                newuser.getFirstname(),
+                newuser.getLastname());
 
         Set<Role> roles = new HashSet<>();
 
@@ -96,18 +97,31 @@ public class HomeController {
     public String getUser (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        String firstName = userRepository.findByUsername(currentPrincipalName).get().getFirstName();
-        String lastName = userRepository.findByUsername(currentPrincipalName).get().getLastName();
+        String firstName = userRepository.findByUsername(currentPrincipalName).get().getFirstname();
+        String lastName = userRepository.findByUsername(currentPrincipalName).get().getLastname();
         String email = userRepository.findByUsername(currentPrincipalName).get().getEmail();
-        Integer id = userRepository.findByUsername(currentPrincipalName).get().getId();
-        model.addAttribute("id",id);
         model.addAttribute("username", currentPrincipalName);
         model.addAttribute("firstname", firstName);
         model.addAttribute("lastname", lastName);
+        model.addAttribute("email", email);
         return "profile";
     }
-    @PostMapping("/profile/update")//putmapping
-    public String profileUpdate(){
+
+    @PostMapping("/profile/update")
+    public String updateUser(User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Optional<User> user1 = userRepository.findByUsername(currentPrincipalName);
+        if (user.getFirstname() != null){
+            user1.get().setFirstname(user.getFirstname());
+        }
+        if (user.getLastname() != null){
+            user1.get().setLastname(user.getLastname());
+        }
+        if (user.getEmail() != null){
+            user1.get().setEmail(user.getEmail());
+        }
+        userRepository.save(user1.get());
         return "redirect:/profile";
     }
 

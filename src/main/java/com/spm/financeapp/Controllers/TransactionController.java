@@ -81,7 +81,7 @@ public class TransactionController {
     public String getTransactionList(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        String nameSurname = userRepository.findByUsername(currentPrincipalName).get().getFirstName() + " " + userRepository.findByUsername(currentPrincipalName).get().getLastName();
+        String nameSurname = userRepository.findByUsername(currentPrincipalName).get().getFirstname() + " " + userRepository.findByUsername(currentPrincipalName).get().getLastname();
 
         model.addAttribute("namesurname", nameSurname);
 
