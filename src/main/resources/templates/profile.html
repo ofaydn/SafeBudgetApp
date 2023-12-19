@@ -89,19 +89,19 @@
                                     <form  th:action="@{/profile/update}" method="post">
                                         <div class="form-group">
                                             <label for="username">Username:</label>
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" disabled th:value="${username}">
+                                            <input type="text" required class="form-control" id="username" name="username" placeholder="Enter username" disabled th:value="${username}">
                                         </div>
                                         <div class="form-group">
                                             <label for="firstname">Name:</label>
-                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter name" th:value="${firstname}">
+                                            <input type="text" required class="form-control" id="firstname" name="firstname" placeholder="Enter name" th:value="${firstname}">
                                         </div>
                                         <div class="form-group">
                                             <label for="lastname">Surname:</label>
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter surname" th:value="${lastname}">
+                                            <input type="text" required class="form-control" id="lastname" name="lastname" placeholder="Enter surname" th:value="${lastname}">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" th:value="${email}">
+                                            <input type="email" required class="form-control" id="email" name="email" placeholder="Enter email" th:value="${email}">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
                                     </form>
