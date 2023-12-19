@@ -91,6 +91,7 @@ public class HomeController {
 
         return "redirect:/login" ;
     }
+
     @GetMapping("/profile")
     public String getUser (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -98,14 +99,18 @@ public class HomeController {
         String firstName = userRepository.findByUsername(currentPrincipalName).get().getFirstName();
         String lastName = userRepository.findByUsername(currentPrincipalName).get().getLastName();
         String email = userRepository.findByUsername(currentPrincipalName).get().getEmail();
-
+        Integer id = userRepository.findByUsername(currentPrincipalName).get().getId();
+        model.addAttribute("id",id);
         model.addAttribute("username", currentPrincipalName);
         model.addAttribute("firstname", firstName);
         model.addAttribute("lastname", lastName);
         model.addAttribute("email", email);
-
-
         return "profile";
     }
+    @PutMapping("/profile/update")//putmapping
+    public String profileUpdate(){
+        return "redirect:/profile";
+    }
+
 
 }
