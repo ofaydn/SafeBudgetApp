@@ -104,10 +104,9 @@ public class HomeController {
         model.addAttribute("username", currentPrincipalName);
         model.addAttribute("firstname", firstName);
         model.addAttribute("lastname", lastName);
-        model.addAttribute("email", email);
         return "profile";
     }
-    @PutMapping("/profile/update")//putmapping
+    @PostMapping("/profile/update")//putmapping
     public String profileUpdate(){
         return "redirect:/profile";
     }
