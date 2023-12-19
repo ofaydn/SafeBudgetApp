@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -31,9 +31,12 @@
                 <img src="/images/logo.png" alt="logo.png" style="height: 40px;">
                 Safe Budget
             </a>
-            <div class="">
+            <div sec:authorize="isAnonymous()">
                 <a class="btn btn-primary" href="/register">Sign Up</a>
                 <a class="btn btn-success" href="/login">Login</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-warning" href="/dashboard">Dashboard</a>
             </div>
         </div>
     </nav>

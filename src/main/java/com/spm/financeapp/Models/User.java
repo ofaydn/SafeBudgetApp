@@ -22,10 +22,10 @@ public class User {
     private String username;
 
     @Column(name="first_name")
-    private String firstName;
+    private String firstname;
 
     @Column(name="last_name")
-    private String lastName;
+    private String lastname;
 
     @Column(name="email")
     private String email;
@@ -39,11 +39,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> role = new HashSet<>();
 
-    public User(String username, String email, String password, String firstName, String lastName) {
+    public User(String username, String email, String password, String firstname, String lastname) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 }
