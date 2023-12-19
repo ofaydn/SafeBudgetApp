@@ -115,8 +115,16 @@
     function togglePeriodDropdown() {
         // Show/hide the periodId dropdown based on the checkbox state
         periodDropdownElement.style.display = isPeriodicCheckbox.checked ? "block" : "none";
+
+        // Set or remove the 'required' attribute based on the checkbox state
+        if (isPeriodicCheckbox.checked) {
+            periodDropdownElement.setAttribute("required", "required");
+        } else {
+            periodDropdownElement.removeAttribute("required");
+        }
     }
 </script>
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="/static/vendor/jquery/jquery.min.js"></script>
