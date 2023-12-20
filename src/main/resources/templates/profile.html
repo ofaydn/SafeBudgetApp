@@ -48,28 +48,29 @@
             <div class="container-fluid">
 
                 <div class="container">
-                    <h1>User Profile</h1>
-                    <table class="table">
-                        <tr>
-                            <td>Username:</td>
-                            <td><span id="usernameField" th:text="${username}"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Name:</td>
-                            <td><span id="firstnameField" th:text="${firstname}"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Surname:</td>
-                            <td><span id="lastnameField" th:text="${lastname}"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Email:</td>
-                            <td><span id="emailField" th:text="${email}"></span></td>
-                        </tr>
-                    </table>
-
+                    <h1 class="h3 mb-0 text-gray-800 mb-4">User Profile</h1>
+                    <div class="card">
+                        <table class="table">
+                            <tr>
+                                <td>Username:</td>
+                                <td><span class="text-dark" id="usernameField" th:text="${username}"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Name:</td>
+                                <td><span class="text-dark" id="firstnameField" th:text="${firstname}"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Surname:</td>
+                                <td><span class="text-dark" id="lastnameField" th:text="${lastname}"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><span class="text-dark" id="emailField" th:text="${email}"></span></td>
+                            </tr>
+                        </table>
+                    </div>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+                    <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#editModal">
                         Edit Profile
                     </button>
 
