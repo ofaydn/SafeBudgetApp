@@ -47,30 +47,30 @@
                             <form method="post" th:action="@{/register}" class="user">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required="" name="firstName" type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input required="" name="firstname" type="text" class="form-control form-control-user" id="firstname"
                                             placeholder="First Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input required="" name="lastName" type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input required="" name="lastname" type="text" class="form-control form-control-user" id="lastname"
                                             placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input required="" name="username" type="text" class="form-control form-control-user" id="exampleInputUserName"
+                                    <input required="" name="username" type="text" class="form-control form-control-user" id="username"
                                         placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <input required="" name="email" type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input required="" name="email" type="email" class="form-control form-control-user" id="email"
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input required="" name="password" type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                            id="password" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
                                         <input required="" name="repeatPassword" type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            id="repeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
@@ -87,6 +87,22 @@
         </div>
 
     </div>
+
+    <script>
+        var password = document.getElementById("password")
+            , confirm_password = document.getElementById("repeatPassword");
+
+        function validatePassword(){
+            if(password.value !== confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
