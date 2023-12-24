@@ -75,10 +75,15 @@
 
                                 <tbody>
                                     <tr th:each="t : ${transactionList}">
-                                        <td th:text="${t.date}"></td>
-                                        <td th:text="${t.isPeriodic}"></td>
+                                        <td th:text="${t.date.toString().substring(0,16)}"></td>
+                                        <td th:if="${t.isPeriodic == true}"><span class="badge " style="background-color: #C6CF9B; color:black" th:text="${t.isPeriodic}"></span></td>
+                                        <td th:if="${t.isPeriodic == false}"><span class="badge" style="background-color: #FF8F8F; color:black" th:text="${t.isPeriodic}"></span></td>
+
                                         <td th:text="${t.price}"></td>
-                                        <td th:text="${t.type}"></td>
+
+                                        <td th:if="${t.type == T(com.spm.financeapp.Enums.TransactionType).INCOME}"><span class="badge badge-success" th:text="${t.type}"></span></td>
+                                        <td th:if="${t.type == T(com.spm.financeapp.Enums.TransactionType).EXPENSE}"><span class="badge badge-danger" th:text="${t.type}"></span></td>
+
                                         <td th:text="${t.category?.name}"></td>
                                         <td th:text="${t.period?.type}"></td>
                                         <td>
