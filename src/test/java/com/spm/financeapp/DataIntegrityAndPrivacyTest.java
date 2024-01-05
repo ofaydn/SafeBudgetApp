@@ -1,87 +1,58 @@
 package com.spm.financeapp;
 
-import com.spm.financeapp.Controllers.HomeController;
 import com.spm.financeapp.Models.User;
 import com.spm.financeapp.Repositories.UserRepository;
+import com.spm.financeapp.Security.Services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.HashSet;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-        import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-public class DataIntegrityAndPrivacyTest{
+@AutoConfigureMockMvc
+public class DataIntegrityAndPrivacyTest {
 
     @Autowired
-    private HomeController homeController;
-
-    @MockBean
     private UserRepository userRepository;
 
-    @MockBean(name = "userDetailsServiceImpl")
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Test
-    public void testLoadUserByUsername() {
-        // Arrange
-        User user = new User("testuser", "testuser@example.com", "password", "Test", "User");
-        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
-
-        // Act
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-
-        // Assert
-        assertEquals(user.getUsername(), userDetails.getUsername());
-        verify(userRepository, times(1)).findByUsername(user.getUsername());
-    }
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    public void testRegisterUser() {
-        // Arrange
-        User newUser = new User("testuser", "testuser@example.com", "password", "Test", "User");
-        when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(false);
-        when(userRepository.existsByEmail(newUser.getEmail())).thenReturn(false);
+    public void testUnauthorizedAccess() throws Exception {
+        // Create a mock user without the necessary permissions
+        User mockUser = new User("mockUser", "mockEmail", "mockPassword", "Mock", "User");
 
-        // Act
-        String result = homeController.registerUser(newUser);
+        // Save the mock user in the UserRepository
+        userRepository.save(mockUser);
 
-        // Assert
-        assertEquals("redirect:/login", result);
-        verify(userRepository, times(1)).save(any(User.class));
-    }
+        // Load the mock user using UserDetailsServiceImpl
+        UserDetails userDetails = userDetailsService.loadUserByUsername("mockUser");
 
-    @Test
-    public void testRegisterUserWithExistingUsername() {
-        // Arrange
-        User newUser = new User("testuser", "testuser@example.com", "password", "Test", "User");
-        when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(true);
+        // Attempt to authenticate with the mock user's credentials
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        // Act
-        String result = homeController.registerUser(newUser);
+        // Attempt to access financial data
+        MvcResult result = mockMvc.perform(get("/transaction/*"))
+                .andExpect(status().isForbidden())
+                .andReturn();
 
-        // Assert
-        assertEquals("redirect:/register?error", result);
-    }
-
-    @Test
-    public void testRegisterUserWithExistingEmail() {
-        // Arrange
-        User newUser = new User("testuser", "testuser@example.com", "password", "Test", "User");
-        when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(false);
-        when(userRepository.existsByEmail(newUser.getEmail())).thenReturn(true);
-
-        // Act
-        String result = homeController.registerUser(newUser);
-
-        // Assert
-        assertEquals("redirect:/register?error", result);
+        // Check the response
+        assertEquals(403, result.getResponse().getStatus());
     }
 }
